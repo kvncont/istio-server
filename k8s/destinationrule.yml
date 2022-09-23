@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: istio-server
+spec:
+  host: istio-server.default.svc.cluster.local
+  trafficPolicy:
+    outlierDetection:
+      consecutiveGatewayErrors: 2
+      consecutive5xxErrors: 5
+      interval: 15s
+      baseEjectionTime: 2m
+      maxEjectionPercent: 100

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-server
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: istio-server
+  template:
+    metadata:
+      labels:
+        app: istio-server
+    spec:
+      containers:
+      - name: istio-server
+        image: istio-server:v1
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          initialDelaySeconds: 40
+          httpGet:
+            path: /actuator/health
+            port: 8080
+        livenessProbe:
+          initialDelaySeconds: 40
+          timeoutSeconds: 1
+          httpGet:
+            path: /actuator/health
+            port: 8080
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
