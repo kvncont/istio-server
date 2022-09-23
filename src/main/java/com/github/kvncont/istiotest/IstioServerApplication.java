@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IstioTestApplication {
+public class IstioServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IstioTestApplication.class, args);
+		SpringApplication.run(IstioServerApplication.class, args);
 	}
-
 }
